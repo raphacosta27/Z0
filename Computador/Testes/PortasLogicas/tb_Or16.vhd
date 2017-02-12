@@ -1,5 +1,5 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+library ieee;
+use ieee.std_logic_1164.all;
 
 library vunit_lib;
 context vunit_lib.vunit_context;
@@ -17,7 +17,7 @@ architecture tb of tb_Or16 is
 			q:   out STD_LOGIC_VECTOR(15 downto 0));
 	end component;
 
-  signal  inA, inB, outQ : STD_LOGIC_VECTOR(15 downto 0);
+   signal  inA, inB, outQ : STD_LOGIC_VECTOR(15 downto 0);
 
 begin
 
