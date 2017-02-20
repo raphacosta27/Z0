@@ -1,5 +1,14 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+library ieee;
+use ieee.std_logic_1164.all;
+
+library vunit_lib;
+context vunit_lib.vunit_context;
+
+entity tb_Mux8Way is
+  generic (runner_cfg : string);
+end entity;
+
+architecture tb of tb_Mux8Way is
 
 component Mux8Way is
 	port ( 
@@ -14,3 +23,101 @@ component Mux8Way is
 			sel: in  STD_LOGIC_VECTOR(2 downto 0);
 			q:   out STD_LOGIC);
 end component;
+
+   signal inA, inB, inC, inD, inE, inF, inG, inH, outQ : STD_LOGIC;
+   signal inSel : STD_LOGIC_VECTOR(2 downto 0);
+
+
+begin
+
+	mapping: Mux8Way port map(inA, inB, inC, inD, inE, inF, inG, inH, inSel, outQ);
+
+
+  main : process
+  begin
+    test_runner_setup(runner, runner_cfg);
+
+      -- Teste: 1
+      inA <= '1'; inB <= '0'; inC <='1'; inD <='0'; inE <= '1'; inF <= '0'; inG <='1'; inH<='0'; inSel<= "000";
+      wait for 200 ps;
+      assert(outQ = '1')  report "Falha em teste: 1" severity error;
+
+      -- Teste: 2
+      inA <= '1'; inB <= '0'; inC <='1'; inD <='0'; inE <= '1'; inF <= '0'; inG <='1'; inH<='0'; inSel<= "001";
+      wait for 200 ps;
+      assert(outQ = '0')  report "Falha em teste: 2" severity error;
+      
+      -- Teste: 3
+      inA <= '1'; inB <= '0'; inC <='1'; inD <='0'; inE <= '1'; inF <= '0'; inG <='1'; inH<='0'; inSel<= "010";
+      wait for 200 ps;
+      assert(outQ = '1')  report "Falha em teste: 3" severity error;
+      
+      -- Teste: 4
+      inA <= '1'; inB <= '0'; inC <='1'; inD <='0'; inE <= '1'; inF <= '0'; inG <='1'; inH<='0'; inSel<= "011";
+      wait for 200 ps;
+      assert(outQ = '0')  report "Falha em teste: 4" severity error;
+      
+      -- Teste: 5
+      inA <= '1'; inB <= '0'; inC <='1'; inD <='0'; inE <= '1'; inF <= '0'; inG <='1'; inH<='0'; inSel<= "100";
+      wait for 200 ps;
+      assert(outQ = '1')  report "Falha em teste: 5" severity error;
+
+      -- Teste: 6
+      inA <= '1'; inB <= '0'; inC <='1'; inD <='0'; inE <= '1'; inF <= '0'; inG <='1'; inH<='0'; inSel<= "101";
+      wait for 200 ps;
+      assert(outQ = '0')  report "Falha em teste: 6" severity error;
+      
+      -- Teste: 7
+      inA <= '1'; inB <= '0'; inC <='1'; inD <='0'; inE <= '1'; inF <= '0'; inG <='1'; inH<='0'; inSel<= "110";
+      wait for 200 ps;
+      assert(outQ = '1')  report "Falha em teste: 7" severity error;
+      
+      -- Teste: 8
+      inA <= '1'; inB <= '0'; inC <='1'; inD <='0'; inE <= '1'; inF <= '0'; inG <='1'; inH<='0'; inSel<= "111";
+      wait for 200 ps;
+      assert(outQ = '0')  report "Falha em teste: 8" severity error;
+
+      -- Teste: 9
+      inA <= '0'; inB <= '1'; inC <='0'; inD <='1'; inE <= '0'; inF <= '1'; inG <='0'; inH<='1'; inSel<= "000";
+      wait for 200 ps;
+      assert(outQ = '0')  report "Falha em teste: 9" severity error;
+
+      -- Teste: 10
+     inA <= '0'; inB <= '1'; inC <='0'; inD <='1'; inE <= '0'; inF <= '1'; inG <='0'; inH<='1'; inSel<= "001";
+      wait for 200 ps;
+      assert(outQ = '1')  report "Falha em teste: 10" severity error;
+      
+      -- Teste: 11
+      inA <= '0'; inB <= '1'; inC <='0'; inD <='1'; inE <= '0'; inF <= '1'; inG <='0'; inH<='1'; inSel<= "010";
+      wait for 200 ps;
+      assert(outQ = '0')  report "Falha em teste: 11" severity error;
+      
+      -- Teste: 12
+      inA <= '0'; inB <= '1'; inC <='0'; inD <='1'; inE <= '0'; inF <= '1'; inG <='0'; inH<='1'; inSel<= "011";
+      wait for 200 ps;
+      assert(outQ = '1')  report "Falha em teste: 12" severity error;
+      
+      -- Teste: 13
+      inA <= '0'; inB <= '1'; inC <='0'; inD <='1'; inE <= '0'; inF <= '1'; inG <='0'; inH<='1'; inSel<= "100";
+      wait for 200 ps;
+      assert(outQ = '0')  report "Falha em teste: 13" severity error;
+
+      -- Teste: 14
+      inA <= '0'; inB <= '1'; inC <='0'; inD <='1'; inE <= '0'; inF <= '1'; inG <='0'; inH<='1'; inSel<= "101";
+      wait for 200 ps;
+      assert(outQ = '1')  report "Falha em teste: 14" severity error;
+      
+      -- Teste: 15
+      inA <= '0'; inB <= '1'; inC <='0'; inD <='1'; inE <= '0'; inF <= '1'; inG <='0'; inH<='1'; inSel<= "110";
+      wait for 200 ps;
+      assert(outQ = '0')  report "Falha em teste: 15" severity error;
+      
+      -- Teste: 16
+      inA <= '0'; inB <= '1'; inC <='0'; inD <='1'; inE <= '0'; inF <= '1'; inG <='0'; inH<='1'; inSel<= "111";
+      wait for 200 ps;
+      assert(outQ = '1')  report "Falha em teste: 16" severity error;
+
+    test_runner_cleanup(runner); -- Simulacao acaba aqui
+
+  end process;
+end architecture;
