@@ -5,6 +5,9 @@
 
 package assembler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Encapsula o código de leitura. Carrega as instruções na linguagem assembly,
  * analisa, e oferece acesso as partes da instrução  (campos e símbolos).
@@ -54,7 +57,18 @@ public class Parser {
      * @return o tipo da instrução.
      */
     public CommandType commandType(String command) {
-    	return null;
+    	String[] parts = command.split(" ");
+    	char last = parts[0].charAt(parts[0].length() - 1);
+    	if (parts[0].equals("leaw")){
+    		return CommandType.A_COMMAND;
+    	}
+    	else if (last == ':'){
+    		return CommandType.L_COMMAND;
+    	}
+    	else {
+    		return CommandType.C_COMMAND;
+    	}
+    	
     }
 
     /**
@@ -74,7 +88,14 @@ public class Parser {
      * @return o símbolo da instrução (sem os dois pontos).
      */
     public String label(String command) {
-    	return null;
+    	CommandType type = commandType(command);
+    	if (type == CommandType.L_COMMAND){
+    		String symbol = command.substring(0, command.length() - 1);
+    		return symbol;
+    	}
+    	else{
+    		return null;
+    	}
     }
 
     /**
@@ -84,7 +105,22 @@ public class Parser {
      * @return um vetor de string contento os tokens da instrução (as partes do comando).
      */
     public String[] instruction(String command) {
-    	return null;
+    	String[] parts = command.split(" ");
+    	if (parts.length <= 1){
+    		return parts;
+    	}
+    	else {
+    		String[] secondParts = parts[1].split(",");
+    		List<String> answer = new ArrayList<String>();
+    		answer.add(parts[0]);
+    		for(int i = 0; i < secondParts.length; i++){
+    			answer.add(secondParts[i]);
+    		}
+    		String[] instruction = new String[answer.size()];
+    		instruction = answer.toArray(instruction);
+    		return instruction;
+
+    	}
     }
 
 }
