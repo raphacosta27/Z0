@@ -48,7 +48,7 @@ python TestesHW/run.py -p3
 
 # Testes para codigos em Assembly
 python TestesSW/assembler.py -t TestesSW/testesAssembly.txt -in Codigos/Assembly/ -out TestesSW/machine_code/ -p 3
-python TestesSW/emulate.py -t TestesSW/testesAssembly.txt -in TestesSW/testesAssembly/ -out TestesSW/machine_code/ -p 3
+python TestesSW/emulate.py -t TestesSW/testesAssembly.txt -in TestesSW/testesAssembly/ -out TestesSW/machine_code/ -p 3 -r 512,256
 python -m pytest -v TestesSW/testeAssembly.py -rxs
 
 # Testes para AssemblerZ0
