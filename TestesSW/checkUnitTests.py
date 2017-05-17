@@ -1,3 +1,4 @@
+#coding: utf-8
 # Checa se testes unitarios passsaram antes de fazer o teste de sistema
 # Arquivo: checkUnitTests.py
 # Criado por: Luciano Soares <lpsoares@insper.edu.br>
@@ -23,7 +24,7 @@ def checkUnitTests(pasta):
 				str = str.replace("class","txt")
 				testesJUnit.append(str)
 
-	
+
 	for i in testesJUnit:
 
 		# rotina de leitura do arquivo de teste

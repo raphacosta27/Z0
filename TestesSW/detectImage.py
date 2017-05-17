@@ -1,3 +1,4 @@
+#coding: utf-8
 # Curso de Elementos de Sistemas
 # Desenvolvido por: Luciano Soares <lpsoares@insper.edu.br>
 # Data de criação: 30/03/2017
@@ -8,7 +9,7 @@ import imutils
 WHITE = [255,255,255]
 
 def maxpoly(name):
-    img = cv2.imread(name)    
+    img = cv2.imread(name)
     img_B = cv2.copyMakeBorder(img,6,6,6,6,cv2.BORDER_CONSTANT,value=WHITE)
     gray = cv2.cvtColor(img_B, cv2.COLOR_BGR2GRAY)
     ret,thresh = cv2.threshold(gray,60,255,1)

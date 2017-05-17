@@ -1,3 +1,4 @@
+#coding: utf-8
 # Testador de emulação
 # Arquivo: testJack.nasm
 # Criado por: Luciano Soares <lpsoares@insper.edu.br>
@@ -10,6 +11,8 @@
 #                            #
 ##############################
 
+
+
 import sys, getopt
 import unittest
 import pytest
@@ -17,7 +20,7 @@ import loadTestes
 import detectImage
 import checkUnitTests
 
-nomes_testes = loadTestes.testes("TestesSW/testesJack.txt")
+nomes_testes = loadTestes.testes("C:\\Users\\1513 IRON\\Desktop\\Insper\\3_semestre\\Elementos de Sistema\\Z0\\TestesSW\\testesJack.txt")
 
 @pytest.mark.parametrize(('nomes_testes'),nomes_testes)
 def test_Assembly(nomes_testes):
@@ -27,7 +30,7 @@ def test_Assembly(nomes_testes):
 	nomes_testes = nomes_testes.split()
 
 	#resultado = dir_dados+"{0}_out.mif".format(nomes_testes[0])
-	teste = "TestesSW/testesJack/{0}_tst.txt".format(nomes_testes[0])
+	teste = "C:\\Users\\1513 IRON\\Desktop\\Insper\\3_semestre\\Elementos de Sistema\\Z0\\TestesSW\\testesJack\\{0}_tst.txt".format(nomes_testes[0])
 	imagem = dir_dados+"{0}.pbm".format(nomes_testes[0])
 	#debug = False
 
@@ -53,7 +56,5 @@ def test_Assembly(nomes_testes):
 		tipo = "hexágono"
 	elif poligonos > 6:
 		tipo = "poligono com mais de 6 faces"
-	
-	assert (poligonos>=3),"Erro: {0} Geometria Detectada={1}, geometria esperada ({2})".format(nomes_testes[0],tipo,linha[0])	
 
-
+	assert (poligonos>=3),"Erro: {0} Geometria Detectada={1}, geometria esperada ({2})".format(nomes_testes[0],tipo,linha[0])
