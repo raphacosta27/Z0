@@ -7,69 +7,14 @@ import sys, getopt
 import unittest
 import pytest	
 import subprocess
-
-# Carregas os casos de uso para os testes
-def loadTestesAssembler(nome_arquivo):
-
-	nomes_testes = []
-
-	# rotina de leitura dos arquivos para realizar o assembler
-	with open(nome_arquivo, 'r') as arquivo:
-		tmp = arquivo.read().splitlines()
-
-		for i in tmp:
-			if i.strip():
-				if i.strip()[0]!='#':
-					nomes_testes.append(i)
-
-	return nomes_testes
-
-# Verificar se testes unitários passaram
-def checkTestsAssembler(pasta):
-
-	hasErrors = False
-
-	nome_arquivo = pasta+"maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst"
-
-	testesJUnit = []
-
-	# rotina de leitura dos arquivos que fizeram testes
-	with open(nome_arquivo, 'r') as arquivo:
-		tmp = arquivo.read().splitlines()
-
-		for i in tmp:
-			if i.strip():
-				str = i.strip();
-				str = str.replace("/",".")
-				str = str.replace("class","txt")
-				testesJUnit.append(str)
-
-	
-	for i in testesJUnit:
-
-		# rotina de leitura do arquivo de teste
-		with open(pasta+"surefire-reports/"+i, 'r') as arquivo:
-			tmp = arquivo.read().splitlines()
-			partes = tmp[3].split()
-			for i in range(len(partes)):
-				if(partes[i]=='Failures:'):
-					if(partes[i+1]!='0,'):
-						hasErrors = True
-				if(partes[i]=='Errors:'):
-					if(partes[i+1]!='0,'):
-						hasErrors = True
-				if(partes[i]=='Skipped:'):
-					if(partes[i+1]!='0,'):
-						hasErrors = True
-
-	return hasErrors
+import loadTestes
+import checkUnitTests
 
 # Rotinas para carregar os testes
-nomes_testes = loadTestesAssembler("TestesSW/testesAssembler.txt")
-
+nomes_testes = loadTestes.testes("TestesSW/testesAssembler.txt")
 
 # Testes a serem realizados
-@pytest.mark.skipif(checkTestsAssembler("Codigos/AssemblerZ0/target/"),
+@pytest.mark.skipif(checkUnitTests.checkUnitTests("Codigos/AssemblerZ0/target/"),
 	reason="Testes unitários anteriores não passaram por completo, não executando teste de sistema.")
 @pytest.mark.parametrize(('nomes_testes'),nomes_testes)
 def test_Assembler(nomes_testes):
@@ -130,5 +75,8 @@ def test_Assembler(nomes_testes):
 	assert (dic_int["DATA_RADIX"]==dic_ext["DATA_RADIX"]),"DATA_RADIX diferente"
 
 	for n in range( int(dic_int["DEPTH"][:-1]) ): 
-		assert (dic_int[str(n)]==dic_ext[str(n)]),"instrução {0} diferente".format(n)
+		if dic_int[str(n)][13:16]=="111":  # caso um jump incondicional o calculo é irrelevante
+			assert (dic_int[str(n)][10:]==dic_ext[str(n)][10:]),"instrução {0} diferente".format(n)
+		else:
+			assert (dic_int[str(n)]==dic_ext[str(n)]),"instrução {0} diferente".format(n)
 
