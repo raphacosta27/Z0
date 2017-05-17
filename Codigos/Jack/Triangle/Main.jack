@@ -7,15 +7,19 @@
 class Main {
 
     function void main() {
-    
+
         // Exemplo de chamada para subrotina
         do Main.drawTriangle(160, 120, 30);
-        
+
         return;
     }
-    
+
     /** Desenha uma triangulo na tela. */
     function void drawTriangle(int x, int y, int d) {
+        do Screen.drawLine(x, y, x+d, y);
+        do Screen.drawLine(x, y, x+d, y-d);
+        do Screen.drawLine(x+d, y, x+d+d, y);
+        do Screen.drawLine(x+d+d, y, x+d, y-d);
         return;
     }
 

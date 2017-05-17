@@ -7,12 +7,12 @@
 class Main {
 
     function void main() {
-    
+
         do Main.drawQuadrado(50, 50, 30);
-        
+
         return;
     }
-    
+
     /** Desenha um quadrado na tela. */
     function void drawQuadrado(int x, int y, int d) {
         var int e;
